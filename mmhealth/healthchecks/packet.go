@@ -39,7 +39,7 @@ func (p *ProcessPacket) h012(checks map[string]types.Check) CheckResult {
 	}
 
 	// check if the ldap_sync_jobs for any status that's not success
-	for _, job := range p.packet.Packet.LdapSyncJobs {
+	for _, job := range p.packet.Jobs.LDAPSyncJobs {
 		if job.Status != "success" {
 			result.Result = check.Result.Fail
 			result.Status = Fail
@@ -62,7 +62,7 @@ func (p *ProcessPacket) h013(checks map[string]types.Check) CheckResult {
 	}
 
 	// check if the message_export_jobs for any status that's not success
-	for _, job := range p.packet.Packet.MessageExportJobs {
+	for _, job := range p.packet.Jobs.MessageExportJobs {
 		if job.Status != "success" {
 			result.Result = check.Result.Fail
 			result.Status = Fail
@@ -77,14 +77,14 @@ func (p *ProcessPacket) h014(checks map[string]types.Check) CheckResult {
 	// check defaults to pass here because we are looking for the failure message
 	check, result := initCheckResult("h014", checks, Pass)
 
-	if len(p.packet.Packet.MigrationJobs) == 0 {
+	if len(p.packet.Jobs.MigrationJobs) == 0 {
 		result.Result = check.Result.Ignore
 		result.Status = Ignore
 		return result
 	}
 
 	// check if the message_export_jobs for any status that's not success
-	for _, job := range p.packet.Packet.MigrationJobs {
+	for _, job := range p.packet.Jobs.MigrationJobs {
 		if job.Status != "success" {
 			result.Result = check.Result.Fail
 			result.Status = Fail
@@ -107,7 +107,7 @@ func (p *ProcessPacket) h015(checks map[string]types.Check) CheckResult {
 	}
 
 	// check if the message_export_jobs for any status that's not success
-	for _, job := range p.packet.Packet.DataRetentionJobs {
+	for _, job := range p.packet.Jobs.DataRetentionJobs {
 		if job.Status != "success" {
 			result.Result = check.Result.Fail
 			result.Status = Fail
@@ -128,7 +128,7 @@ func (p *ProcessPacket) h016(checks map[string]types.Check) CheckResult {
 		return result
 	}
 
-	for _, job := range p.packet.Packet.ElasticPostIndexingJobs {
+	for _, job := range p.packet.Jobs.ElasticPostIndexingJobs {
 		if job.Status != "success" {
 			result.Result = check.Result.Fail
 			result.Status = Fail
@@ -149,7 +149,7 @@ func (p *ProcessPacket) h017(checks map[string]types.Check) CheckResult {
 		return result
 	}
 
-	for _, job := range p.packet.Packet.ElasticPostAggregationJobs {
+	for _, job := range p.packet.Jobs.ElasticPostAggregationJobs {
 		if job.Status != "success" {
 			result.Result = check.Result.Fail
 			result.Status = Fail

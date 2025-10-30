@@ -55,7 +55,11 @@ func generateCmdF(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return err
 	}
-	defer packetReader.Close()
+	defer func() {
+		if closeErr := packetReader.Close(); closeErr != nil {
+			mmhealth.HandleError("Error closing packet file:", closeErr)
+		}
+	}()
 
 	zipFileInfo, err := packetReader.Stat()
 	if err != nil {
@@ -80,7 +84,7 @@ func generateCmdF(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	report.Metadata.CompanyName = packetContents.Packet.LicenseTo
+	report.Metadata.CompanyName = packetContents.Diagnostics.License.Company
 
 	// override the company name if it was provided
 	if companyName, err := cmd.Flags().GetString("company"); err == nil && companyName != "" {
@@ -119,7 +123,11 @@ func saveMarkdownReportToFile(outputFileName string, results healthchecks.CheckR
 	if err != nil {
 		return errors.Wrap(err, "failed to create report markdown")
 	}
-	defer file.Close()
+	defer func() {
+		if closeErr := file.Close(); closeErr != nil {
+			mmhealth.HandleError("Error closing report file:", closeErr)
+		}
+	}()
 
 	markdown := "---\n" + string(data) + "---\n"
 

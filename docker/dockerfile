@@ -1,5 +1,5 @@
 # Start from the Debian base image
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 ARG TL_MIRROR="https://mirror.ctan.org/systems/texlive/tlnet"
-ARG TL_YEAR="2024"
+ARG TL_YEAR="2025"
 
 RUN mkdir "/tmp/texlive"
 WORKDIR "/tmp/texlive"
@@ -33,7 +33,7 @@ RUN tar xzvf ./install-tl-unx.tar.gz && \
         echo "TEXMFHOME ~/.texmf" \
     ) > "/tmp/texlive.profile"
 
-RUN "./install-tl-${TL_YEAR}"*"/install-tl" --location "$TL_MIRROR" -profile "/tmp/texlive.profile" --no-interaction
+RUN cd install-tl-* && ./install-tl --location "$TL_MIRROR" -profile "/tmp/texlive.profile" --no-interaction
 RUN rm -vf "/opt/texlive/${TL_YEAR}/install-tl"
 RUN rm -vf "/opt/texlive/${TL_YEAR}/install-tl.log"
 RUN rm -vrf /tmp/*
@@ -60,7 +60,7 @@ WORKDIR /app
 COPY ./template/template.tex .
 COPY ./template/*.png .
 
-ENV TEXMFVAR /tmp/texmf-var
+ENV TEXMFVAR=/tmp/texmf-var
 RUN mkdir -p /tmp/texmf-var
 RUN chmod -R 777 /tmp/texmf-var
 
@@ -68,7 +68,7 @@ RUN chmod -R 777 /tmp/texmf-var
 
 # Print the PATH environment variable
 RUN echo $PATH
-RUN ls /opt/texlive/2024/bin/x86_64-linux
+RUN ls /opt/texlive/${TL_YEAR}/bin/x86_64-linux
 
 
 ENTRYPOINT ["pandoc", "--pdf-engine=lualatex"]

@@ -6,3 +6,5 @@ healthcheck-report.*
 .env
 healthchecks.csv
 .idea
+coverage.out
+coverage.html

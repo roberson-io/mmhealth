@@ -1,0 +1,13 @@
+registered_users: 15000
+active_users: 8500
+daily_active_users: 3200
+monthly_active_users: 7800
+deactivated_users: 2500
+guests: 450
+bot_accounts: 35
+posts: 2850000
+channels: 8500
+teams: 25
+slash_commands: 120
+incoming_webhooks: 85
+outgoing_webhooks: 42

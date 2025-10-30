@@ -2,6 +2,22 @@
 
 Simple Mattermost health check tool. This tool accepts a support packet and generates a markdown file containing the results of the investigation.
 
+## Supported Mattermost Versions
+
+This tool supports Mattermost support packets from the following versions:
+
+**Currently Supported (as of October 2025):**
+- **11.0.x** - Full support (until 2026-01-15)
+- **10.12.x** - Full support (until 2025-12-15)
+- **10.11.x** - Extended Support Release (ESR) (until 2026-08-15)
+
+**Legacy Support:**
+- **v9.10 - v10.10** - Older versions are supported via V1 format compatibility
+
+The tool automatically detects and handles both V1 (pre-v10.6.0) and V2 (v10.6.0+) support packet formats.
+
+> **Note:** Mattermost releases new versions monthly. The supported versions in `mmhealth/files/config.yaml` should be updated regularly by checking the [Mattermost Server Releases](https://docs.mattermost.com/product-overview/mattermost-server-releases.html) documentation.
+
 ## Getting Started
 
 1. Ensure you have `go` installed on your OS. If you do not, follow the guide [here](https://go.dev/doc/install)

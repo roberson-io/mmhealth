@@ -49,7 +49,11 @@ func parseCSVCmdF(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer file.Close()
+	defer func() {
+		if closeErr := file.Close(); closeErr != nil {
+			mmhealth.HandleError("Error closing CSV file:", closeErr)
+		}
+	}()
 
 	// Read the CSV file
 	var records []*Record

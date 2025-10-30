@@ -1,0 +1,31 @@
+version: 1
+license:
+    company: Mattermost Engineering
+    users: 100000
+    sku_short_name: advanced
+server:
+    os: linux
+    architecture: amd64
+    hostname: mattermost-rocky
+    version: 10.9.5
+    build_hash: 154962b1763facdc320279c12e853cb3623e9f08
+    installation_type: unknown
+config:
+    store_type: postgres://****:****@192.168.139.34:5432/mattermost?connect_timeout=10&sslmode=disable
+database:
+    type: postgres
+    version: "13.22"
+    schema_version: "137"
+    master_connections: 10
+    replica_connections: 0
+    search_connections: 0
+file_store:
+    file_status: OK
+    file_driver: local
+websocket:
+    connections: 1
+cluster:
+    id: nb8yyq71wjfd8xsoq75nb4p8ka
+    number_of_nodes: 0
+ldap: {}
+elastic: {}

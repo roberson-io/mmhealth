@@ -31,9 +31,9 @@ func (p *ProcessPacket) h006(checks map[string]types.Check) CheckResult {
 
 	check, result := initCheckResult("h006", checks, Fail)
 
-	result.Result = fmt.Sprintf(check.Result.Fail, p.packet.Packet.ServerVersion)
+	result.Result = fmt.Sprintf(check.Result.Fail, p.packet.Diagnostics.Server.Version)
 
-	serverVersion, err := semver.NewVersion(p.packet.Packet.ServerVersion)
+	serverVersion, err := semver.NewVersion(p.packet.Diagnostics.Server.Version)
 	if err != nil {
 		result.Status = Fail
 		result.Result = fmt.Sprintf("Error parsing server version: %s", err)
@@ -47,7 +47,7 @@ func (p *ProcessPacket) h006(checks map[string]types.Check) CheckResult {
 			return result
 		}
 		if constraint.Check(serverVersion) {
-			result.Result = fmt.Sprintf(check.Result.Pass, p.packet.Packet.ServerVersion)
+			result.Result = fmt.Sprintf(check.Result.Pass, p.packet.Diagnostics.Server.Version)
 			result.Status = Pass
 			return result
 		}
@@ -61,7 +61,7 @@ func (p *ProcessPacket) h006(checks map[string]types.Check) CheckResult {
 		}
 
 		if esrConstraint.Check(serverVersion) {
-			result.Result = fmt.Sprintf(check.Result.Pass, p.packet.Packet.ServerVersion)
+			result.Result = fmt.Sprintf(check.Result.Pass, p.packet.Diagnostics.Server.Version)
 			result.Status = Warn
 		}
 	}
@@ -73,9 +73,9 @@ func (p *ProcessPacket) h006(checks map[string]types.Check) CheckResult {
 func (p *ProcessPacket) h007(checks map[string]types.Check) CheckResult {
 	check, result := initCheckResult("h007", checks, Fail)
 
-	result.Result = fmt.Sprintf(check.Result.Fail, p.packet.Packet.DatabaseType)
+	result.Result = fmt.Sprintf(check.Result.Fail, p.packet.Diagnostics.Database.Type)
 
-	if p.packet.Packet.DatabaseType == "postgres" {
+	if p.packet.Diagnostics.Database.Type == "postgres" {
 		result.Result = check.Result.Pass
 		result.Status = Pass
 	}
@@ -87,9 +87,9 @@ func (p *ProcessPacket) h007(checks map[string]types.Check) CheckResult {
 func (p *ProcessPacket) h008(checks map[string]types.Check) CheckResult {
 	check, result := initCheckResult("h008", checks, Fail)
 
-	result.Result = fmt.Sprintf(check.Result.Fail, p.packet.Packet.ServerOS)
+	result.Result = fmt.Sprintf(check.Result.Fail, p.packet.Diagnostics.Server.OS)
 
-	if p.packet.Packet.ServerOS == "linux" {
+	if p.packet.Diagnostics.Server.OS == "linux" {
 		result.Result = check.Result.Pass
 		result.Status = Pass
 	}
@@ -101,7 +101,7 @@ func (p *ProcessPacket) h008(checks map[string]types.Check) CheckResult {
 func (p *ProcessPacket) h009(checks map[string]types.Check) CheckResult {
 	check, result := initCheckResult("h009", checks, Fail)
 
-	if p.packet.Packet.TotalPosts == -1 {
+	if p.packet.Stats.Posts == -1 {
 		result.Status = Error
 		result.Result = check.Result.Error
 		p.log("Failed to get total posts for check h009. Usually because MaxUsersForStatistics is set lower than the actual number of users.")
@@ -114,7 +114,7 @@ func (p *ProcessPacket) h009(checks map[string]types.Check) CheckResult {
 		return result
 	}
 
-	if p.packet.Packet.TotalPosts < 2500000 {
+	if p.packet.Stats.Posts < 2500000 {
 		result.Status = Ignore
 		result.Result = check.Result.Ignore
 		return result
@@ -133,8 +133,8 @@ func (p *ProcessPacket) h011(checks map[string]types.Check) CheckResult {
 		return result
 	}
 
-	if p.packet.Packet.ElasticServerPlugins != nil && len(p.packet.Packet.ElasticServerPlugins) > 0 {
-		for _, plugin := range p.packet.Packet.ElasticServerPlugins {
+	if len(p.packet.Diagnostics.ElasticSearch.ServerPlugins) > 0 {
+		for _, plugin := range p.packet.Diagnostics.ElasticSearch.ServerPlugins {
 			if plugin == "analysis-icu" {
 				result.Result = check.Result.Pass
 				result.Status = Pass

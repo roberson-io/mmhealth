@@ -1,51 +1,49 @@
 versions:
   supported:
-    - 9.10.x
-    - 10.0.x
-    - 10.1.x
+    - 10.12.x
+    - 11.0.x
   esr:
-    - 9.11.x
-    - 9.5.x
+    - 10.11.x
 plugins:
   com.mattermost.nps:
     repo: https://github.com/mattermost/mattermost-plugin-nps
-    latest: 1.3.3
+    latest: "1.3.3"
     release_date: "2023-10-18T23:09:50Z"
     support_level: "community"
   com.mattermost.apps:
     repo: https://github.com/mattermost/mattermost-plugin-apps
-    latest: 1.2.2
+    latest: "1.2.2"
     release_date: "2023-05-26T08:40:59Z"
     support_level: "full"
   com.mattermost.calls:
     repo: https://github.com/mattermost/mattermost-plugin-calls
-    latest: 1.2.0
-    release_date: "2024-10-11T16:50:04Z"
+    latest: "1.10.0"
+    release_date: "2025-07-18T12:57:39Z"
     support_level: "full"
   com.mattermost.plugin-channel-export:
     repo: https://github.com/mattermost/mattermost-plugin-channel-export
-    latest: 1.0.1
-    release_date: "2024-07-24T14:33:49Z"
+    latest: "1.3.0"
+    release_date: "2025-10-28T18:28:49Z"
     support_level: "community"
   focalboard:
     repo: https://github.com/mattermost/mattermost-plugin-boards
-    latest: "9.0.0"
-    release_date: "2024-08-22T02:18:38Z"
+    latest: "9.2.0"
+    release_date: "2025-10-30T16:49:15Z"
     support_level: "full"
   playbooks:
     repo: https://github.com/mattermost/mattermost-plugin-playbooks
-    latest: 2.0.1
-    release_date: "2024-08-21T15:40:26Z"
+    latest: "2.5.0"
+    release_date: "2025-10-13T21:04:31Z"
     support_level: "full"
   jira:
     repo: https://github.com/mattermost/mattermost-plugin-jira
-    latest: 4.1.1
-    release_date: "2024-04-08T09:27:51Z"
+    latest: "4.4.0"
+    release_date: "2025-10-08T08:33:25Z"
     support_level: "full"
   zoom:
     repo: https://github.com/mattermost/mattermost-plugin-zoom
-    latest: 1.8.0
-    release_date: "2024-04-25T14:24:00Z"
+    latest: "1.10.0"
+    release_date: "2025-09-25T10:07:35Z"
     support_level: "full"
   com.mattermost.wrangler:
     repo: https://github.com/gabrieljackson/mattermost-plugin-wrangler
@@ -69,8 +67,8 @@ plugins:
     support_level: "community"
   com.github.matterpoll.matterpoll:
     repo: https://github.com/matterpoll/matterpoll
-    latest: 1.7.2
-    release_date: "2024-09-23T12:48:35Z"
+    latest: 1.8.0
+    release_date: "2025-04-14T14:03:19Z"
     support_level: "community"
   com.github.scottleedavis.mattermost-plugin-remind:
     repo: https://github.com/scottleedavis/mattermost-plugin-remind
@@ -79,8 +77,8 @@ plugins:
     support_level: "community"
   com.github.manland.mattermost-plugin-gitlab:
     repo: https://github.com/mattermost/mattermost-plugin-gitlab
-    latest: 1.9.1
-    release_date: "2024-05-17T14:41:04Z"
+    latest: "1.11.0"
+    release_date: "2025-09-10T08:11:18Z"
     support_level: "full"
   standup-raven:
     repo: https://github.com/standup-raven/standup-raven
@@ -94,18 +92,18 @@ plugins:
     support_level: "community"
   com.github.moussetc.mattermost.plugin.giphy:
     repo: https://github.com/moussetc/mattermost-plugin-giphy/
-    latest: 3.0.0
-    release_date: "2023-04-22T20:58:44Z"
+    latest: 4.0.0
+    release_date: "2025-05-06T15:42:46Z"
     support_level: "community"
   com.mattermost.confluence:
     repo: https://github.com/mattermost-community/mattermost-plugin-confluence
-    latest: "1.3.0"
-    release_date: "2022-11-29T16:19:27Z"
+    latest: ""
+    release_date: ""
     support_level: "community"
   mattermost-autolink:
     repo: https://github.com/mattermost-community/mattermost-plugin-autolink
-    latest: "1.4.0"
-    release_date: "2023-03-28T20:23:28Z"
+    latest: "1.4.1"
+    release_date: "2025-04-15T10:48:20Z"
     support_level: "community"
   com.mattermost.voice:
     repo: https://github.com/streamer45/mattermost-plugin-voice
@@ -129,13 +127,13 @@ plugins:
     support_level: "community"
   com.mattermost.mscalendar:
     repo: https://github.com/mattermost/mattermost-plugin-mscalendar
-    latest: 1.3.4
-    release_date: "2024-08-30T23:32:03Z"
+    latest: "1.4.0"
+    release_date: "2025-06-20T10:08:54Z"
     support_level: "community"
   com.github.moussetc.mattermost.plugin.diceroller:
     repo: https://github.com/moussetc/mattermost-plugin-dice-roller/
-    latest: 3.1.1
-    release_date: "2021-03-30T21:23:49Z"
+    latest: 3.2.0
+    release_date: "2025-05-04T15:51:57Z"
     support_level: "community"
   antivirus:
     repo: https://github.com/mattermost-community/mattermost-plugin-antivirus
@@ -194,9 +192,9 @@ plugins:
     release_date: "2020-11-21T20:09:09Z"
   jitsi:
     repo: https://github.com/mattermost-community/mattermost-plugin-jitsi
-    latest: "2.0.1"
+    latest: "2.1.0"
     support_level: "community"
-    release_date: "2022-11-05T17:24:22Z"
+    release_date: "2025-06-06T12:01:17Z"
   memes:
     repo: https://github.com/mattermost-community/mattermost-plugin-memes
     latest: "1.5.0"
@@ -204,14 +202,14 @@ plugins:
     release_date: "2022-09-21T21:08:47Z"
   com.mattermost.msteamsmeetings:
     repo: https://github.com/mattermost-community/mattermost-plugin-msteams-meetings
-    latest: "2.2.0"
+    latest: ""
     support_level: "full"
-    release_date: "2024-08-29T22:08:31Z"
+    release_date: ""
   mattermost-profanity-filter:
     repo: https://github.com/mattermost-community/mattermost-plugin-profanity-filter
-    latest: "1.0.0"
+    latest: "1.1.0-rc1"
     support_level: "community"
-    release_date: "2020-10-09T07:52:26Z"
+    release_date: "2025-10-16T11:11:46Z"
   mattermost-plugin-servicenow-virtual-agent:
     repo: https://github.com/mattermost-community/mattermost-plugin-servicenow-virtual-agent
     latest: "2.1.2"
@@ -235,13 +233,13 @@ plugins:
   com.mattermost.gcal:
     repo: https://github.com/mattermost/mattermost-plugin-google-calendar
     support_level: "community"
-    latest: 1.1.2
-    release_date: "2024-07-30T10:10:54Z"
+    latest: "1.3.0"
+    release_date: "2025-09-25T13:00:58Z"
   github:
     repo: https://github.com/mattermost/mattermost-plugin-github
     support_level: "full"
-    latest: 2.3.0
-    release_date: "2024-07-02T15:36:55Z"
+    latest: "2.5.0"
+    release_date: "2025-10-09T13:13:44Z"
   mattermost-file-blocker:
     repo: https://github.com/muratbayan/mattermost-file-blocker
     support_level: "community"
@@ -250,10 +248,10 @@ plugins:
   com.mattermost.mattermost-plugin-metrics:
     repo: https://github.com/mattermost/mattermost-plugin-metrics
     support_level: "full"
-    latest: 0.5.3
-    release_date: "2024-10-02T14:56:54Z"
+    latest: "0.7.0"
+    release_date: "2025-05-14T09:27:49Z"
   com.collaboraonlina.mattermost:
     repo: https://github.com/CollaboraOnline/collabora-mattermost
     support_level: "community"
-    latest: 1.1.0
-    release_date: "2020-10-22T11:10:05Z"
+    latest: 1.2.1
+    release_date: "2025-08-11T14:04:54Z"

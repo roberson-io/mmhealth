@@ -23,7 +23,7 @@ build: test
 	$(BUILD_COMMAND)
 
 buildDocker: build
-	docker build --platform=linux/amd64 -f ./docker/dockerfile -t $(DOCKER_IMAGE_DEV) .
+	docker build --platform=linux/amd64 -f ./docker/Dockerfile -t $(DOCKER_IMAGE_DEV) .
 
 run:
 	go run ./main.go
@@ -50,15 +50,17 @@ package: test
 
 	rm ./bin/mmhealth ./bin/mmhealth.exe
 
-check-style: 
+check-style:
 # https://stackoverflow.com/a/677212/1027058 (check if a command exists or not)
 	@if ! [ -x "$$(command -v golangci-lint)" ]; then \
 		echo "golangci-lint is not installed. Please see https://github.com/golangci/golangci-lint#install for installation instructions."; \
 		exit 1; \
 	fi; \
 
+	@echo Checking gofmt
+	@test -z "$$(gofmt -l . | tee /dev/stderr)" || (echo "Files not formatted with gofmt"; exit 1)
 	@echo Running golangci-lint
-	golangci-lint run --skip-dirs-use-default --timeout 5m -E gofmt ./...
+	golangci-lint run --timeout 5m ./...
 
 test: check-style
 	@echo Running tests

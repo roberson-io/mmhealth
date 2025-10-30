@@ -62,7 +62,7 @@ func TestH012(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			p.packet.Config.LdapSettings.Enable = &tc.ldapEnabled
-			p.packet.Packet.LdapSyncJobs = tc.jobs
+			p.packet.Jobs.LDAPSyncJobs = tc.jobs
 			checkStatus(t, p.h012, tc.expectedStatus, tc.expectedResult)
 		})
 	}
@@ -123,7 +123,7 @@ func TestH013(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			p.packet.Config.MessageExportSettings.EnableExport = &tc.messageExportEnabled
-			p.packet.Packet.MessageExportJobs = tc.jobs
+			p.packet.Jobs.MessageExportJobs = tc.jobs
 			checkStatus(t, p.h013, tc.expectedStatus, tc.expectedResult)
 		})
 	}
@@ -168,7 +168,7 @@ func TestH014(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			p.packet.Packet.MigrationJobs = tc.jobs
+			p.packet.Jobs.MigrationJobs = tc.jobs
 			checkStatus(t, p.h014, tc.expectedStatus, tc.expectedResult)
 		})
 	}
@@ -223,7 +223,7 @@ func TestH015(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			p.packet.Packet.DataRetentionJobs = tc.jobs
+			p.packet.Jobs.DataRetentionJobs = tc.jobs
 			p.packet.Config.DataRetentionSettings.EnableMessageDeletion = &tc.enableMessageDeletion
 			p.packet.Config.DataRetentionSettings.EnableFileDeletion = &tc.enableFileDeletion
 
@@ -275,7 +275,7 @@ func TestH016(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			p.packet.Packet.ElasticPostIndexingJobs = tc.jobs
+			p.packet.Jobs.ElasticPostIndexingJobs = tc.jobs
 			p.packet.Config.ElasticsearchSettings.EnableIndexing = &tc.elasticsearch
 
 			checkStatus(t, p.h016, tc.expectedStatus, tc.expectedResult)
@@ -326,7 +326,7 @@ func TestH017(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			p.packet.Packet.ElasticPostAggregationJobs = tc.jobs
+			p.packet.Jobs.ElasticPostAggregationJobs = tc.jobs
 			p.packet.Config.ElasticsearchSettings.EnableIndexing = &tc.elasticsearch
 
 			checkStatus(t, p.h017, tc.expectedStatus, tc.expectedResult)
