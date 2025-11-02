@@ -2,12 +2,11 @@ package mmhealth
 
 import (
 	"github.com/coltoneshaw/mmhealth/mmhealth/types"
-	"github.com/mattermost/mattermost/server/public/model"
 )
 
-// convertV1ToV2Diagnostics converts a V1 SupportPacket to V2 SupportPacketDiagnostics
-func convertV1ToV2Diagnostics(v1 types.SupportPacket) model.SupportPacketDiagnostics {
-	diagnostics := model.SupportPacketDiagnostics{
+// convertV1ToV2Diagnostics converts a V1 SupportPacketV1 to V2 SupportPacketDiagnosticsV2
+func convertV1ToV2Diagnostics(v1 types.SupportPacketV1) types.SupportPacketDiagnosticsV2 {
+	diagnostics := types.SupportPacketDiagnosticsV2{
 		Version: 1, // V1 packets map to diagnostics version 1
 	}
 
@@ -37,9 +36,9 @@ func convertV1ToV2Diagnostics(v1 types.SupportPacket) model.SupportPacketDiagnos
 	return diagnostics
 }
 
-// convertV1ToV2Stats converts a V1 SupportPacket to V2 SupportPacketStats
-func convertV1ToV2Stats(v1 types.SupportPacket) model.SupportPacketStats {
-	stats := model.SupportPacketStats{}
+// convertV1ToV2Stats converts a V1 SupportPacketV1 to V2 SupportPacketStatsV2
+func convertV1ToV2Stats(v1 types.SupportPacketV1) types.SupportPacketStatsV2 {
+	stats := types.SupportPacketStatsV2{}
 
 	stats.ActiveUsers = int64(v1.ActiveUsers)
 	stats.DailyActiveUsers = int64(v1.DailyActiveUsers)
@@ -51,9 +50,9 @@ func convertV1ToV2Stats(v1 types.SupportPacket) model.SupportPacketStats {
 	return stats
 }
 
-// convertV1ToV2Jobs converts a V1 SupportPacket to V2 SupportPacketJobList
-func convertV1ToV2Jobs(v1 types.SupportPacket) model.SupportPacketJobList {
-	jobs := model.SupportPacketJobList{}
+// convertV1ToV2Jobs converts a V1 SupportPacketV1 to V2 SupportPacketJobListV2
+func convertV1ToV2Jobs(v1 types.SupportPacketV1) types.SupportPacketJobListV2 {
+	jobs := types.SupportPacketJobListV2{}
 
 	jobs.DataRetentionJobs = v1.DataRetentionJobs
 	jobs.MessageExportJobs = v1.MessageExportJobs

@@ -109,7 +109,7 @@ Once you are done, be sure to follow the docker release info below.
 
 ### Making Docker Release
 
-When you need to adjust anything inside the `./docker/dockerfile` or `./template`, you'll need to manually adjust the `DOCKER_VERSION` to trigger a rebuild. 
+When you need to adjust anything inside the `./docker/Dockerfile` or `./template`, you'll need to manually adjust the `DOCKER_VERSION` to trigger a rebuild. 
 
 ### Making mmhealth Release
 

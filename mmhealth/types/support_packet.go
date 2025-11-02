@@ -5,10 +5,10 @@ package types
 
 import "github.com/mattermost/mattermost/server/public/model"
 
-// SupportPacket represents the V1 support packet format (pre-v10.6.0)
+// SupportPacketV1 represents the V1 support packet format (pre-v10.6.0)
 // This struct is copied from github.com/mattermost/mattermost/server/public@v0.0.18
 // to maintain compatibility with older support packets after upgrading to v0.1.21+
-type SupportPacket struct {
+type SupportPacketV1 struct {
 	/* Build information */
 
 	ServerOS           string `yaml:"server_os"`
@@ -70,3 +70,15 @@ type SupportPacket struct {
 	LdapSyncJobs               []*model.Job `yaml:"ldap_sync_jobs"`
 	MigrationJobs              []*model.Job `yaml:"migration_jobs"`
 }
+
+// V2 support packet type aliases for convenience and clarity
+// These types are from github.com/mattermost/mattermost/server/public/model (v10.6.0+)
+
+// SupportPacketDiagnosticsV2 is a type alias for model.SupportPacketDiagnostics
+type SupportPacketDiagnosticsV2 = model.SupportPacketDiagnostics
+
+// SupportPacketStatsV2 is a type alias for model.SupportPacketStats
+type SupportPacketStatsV2 = model.SupportPacketStats
+
+// SupportPacketJobListV2 is a type alias for model.SupportPacketJobList
+type SupportPacketJobListV2 = model.SupportPacketJobList

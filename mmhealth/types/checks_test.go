@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/mattermost/mattermost/server/public/model"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestPacketDataV2Structure(t *testing.T) {
@@ -31,26 +32,14 @@ func TestPacketDataV2Structure(t *testing.T) {
 	}
 
 	// Verify diagnostics
-	if packetData.Diagnostics.Version != 1 {
-		t.Errorf("Expected Diagnostics.Version 1, got %d", packetData.Diagnostics.Version)
-	}
+	assert.Equal(t, 1, packetData.Diagnostics.Version)
 
 	// Verify stats
-	if packetData.Stats.ActiveUsers != 8500 {
-		t.Errorf("Expected Stats.ActiveUsers 8500, got %d", packetData.Stats.ActiveUsers)
-	}
-	if packetData.Stats.Posts != 2850000 {
-		t.Errorf("Expected Stats.Posts 2850000, got %d", packetData.Stats.Posts)
-	}
+	assert.Equal(t, int64(8500), packetData.Stats.ActiveUsers)
+	assert.Equal(t, int64(2850000), packetData.Stats.Posts)
 
 	// Verify jobs
-	if len(packetData.Jobs.DataRetentionJobs) != 1 {
-		t.Errorf("Expected 1 data retention job, got %d", len(packetData.Jobs.DataRetentionJobs))
-	}
-	if len(packetData.Jobs.LDAPSyncJobs) != 1 {
-		t.Errorf("Expected 1 LDAP sync job, got %d", len(packetData.Jobs.LDAPSyncJobs))
-	}
-	if packetData.Jobs.DataRetentionJobs[0].Id != "job1" {
-		t.Errorf("Expected job ID 'job1', got '%s'", packetData.Jobs.DataRetentionJobs[0].Id)
-	}
+	assert.Len(t, packetData.Jobs.DataRetentionJobs, 1)
+	assert.Len(t, packetData.Jobs.LDAPSyncJobs, 1)
+	assert.Equal(t, "job1", packetData.Jobs.DataRetentionJobs[0].Id)
 }
