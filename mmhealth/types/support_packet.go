@@ -82,3 +82,6 @@ type SupportPacketStatsV2 = model.SupportPacketStats
 
 // SupportPacketJobListV2 is a type alias for model.SupportPacketJobList
 type SupportPacketJobListV2 = model.SupportPacketJobList
+
+// SupportPacketPermissionInfoV2 is a type alias for model.SupportPacketPermissionInfo
+type SupportPacketPermissionInfoV2 = model.SupportPacketPermissionInfo

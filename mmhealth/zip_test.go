@@ -174,6 +174,41 @@ func TestParseV2JobsInvalidYAML(t *testing.T) {
 	assert.Error(t, err, "Expected YAML unmarshal error")
 }
 
+func TestParseV2Permissions(t *testing.T) {
+	// Test: Parse a V2 permissions.yaml file
+	file, err := os.Open("testdata/v2/permissions.yaml")
+	require.NoError(t, err, "Failed to open test file")
+	defer func() {
+		assert.NoError(t, file.Close(), "Failed to close file")
+	}()
+
+	result, err := parseV2Permissions(file)
+	require.NoError(t, err)
+
+	// Verify roles are present
+	assert.NotEmpty(t, result.Roles, "Expected roles to be present")
+
+	// Find and verify system_admin role exists
+	var foundSystemAdmin bool
+	for _, role := range result.Roles {
+		if role.Name == "system_admin" {
+			foundSystemAdmin = true
+			assert.NotEmpty(t, role.Permissions, "Expected system_admin to have permissions")
+			break
+		}
+	}
+	assert.True(t, foundSystemAdmin, "Expected to find system_admin role")
+}
+
+func TestParseV2PermissionsInvalidYAML(t *testing.T) {
+	// Test: Parse invalid YAML should return error
+	invalidYAML := "roles:\n  - invalid: [unclosed"
+	reader := strings.NewReader(invalidYAML)
+
+	_, err := parseV2Permissions(reader)
+	assert.Error(t, err, "Expected YAML unmarshal error")
+}
+
 // Integration test: Full packet processing for all versions
 func TestUnzipToMemoryAllVersions(t *testing.T) {
 	testCases := []struct {
@@ -184,6 +219,7 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 		expectedOS      string
 		expectedDBType  string
 		expectedSiteURL string
+		hasPermissions  bool // permissions.yaml is available
 		description     string
 	}{
 		{
@@ -194,6 +230,7 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 			expectedOS:      "linux",
 			expectedDBType:  "postgres",
 			expectedSiteURL: "https://mattermost.example.com",
+			hasPermissions:  false,
 			description:     "Pre-v10.0.0 baseline V1 format",
 		},
 		{
@@ -204,6 +241,7 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 			expectedOS:      "linux",
 			expectedDBType:  "postgres",
 			expectedSiteURL: "https://mattermost.example.com",
+			hasPermissions:  false,
 			description:     "V1 format with metadata.yaml (v10.0.0-v10.5.x)",
 		},
 		{
@@ -214,6 +252,7 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 			expectedOS:      "linux",
 			expectedDBType:  "postgres",
 			expectedSiteURL: "https://mattermost.example.com",
+			hasPermissions:  false,
 			description:     "V2 format with diagnostics version 1 (v10.6.0-v10.9.x)",
 		},
 		{
@@ -224,6 +263,7 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 			expectedOS:      "linux",
 			expectedDBType:  "postgres",
 			expectedSiteURL: "https://mattermost.example.com",
+			hasPermissions:  false,
 			description:     "V2 format with HA support and diagnostics version 2 (v10.10.x)",
 		},
 		{
@@ -234,6 +274,7 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 			expectedOS:      "linux",
 			expectedDBType:  "postgres",
 			expectedSiteURL: "https://mattermost.example.com",
+			hasPermissions:  true,
 			description:     "V2 format with database_schema.yaml and diagnostics version 2 (v10.11.0+)",
 		},
 	}
@@ -273,7 +314,10 @@ func TestUnzipToMemoryAllVersions(t *testing.T) {
 			require.NotNil(t, result.Config.ServiceSettings.SiteURL, "Config.ServiceSettings.SiteURL should be populated")
 			assert.Equal(t, tc.expectedSiteURL, *result.Config.ServiceSettings.SiteURL, "Config.ServiceSettings.SiteURL")
 
-			t.Logf("✓ %s: %s", tc.name, tc.description)
+			// Verify Permissions are parsed for versions that have permissions.yaml
+			if tc.hasPermissions {
+				assert.NotEmpty(t, result.Permissions.Roles, "Expected permissions.yaml to contain roles")
+			}
 		})
 	}
 }

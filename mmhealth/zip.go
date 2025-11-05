@@ -146,6 +146,13 @@ func UnzipToMemory(zipReader *zip.Reader) (*types.PacketData, error) {
 			if err != nil {
 				return nil, err
 			}
+		case "permissions.yaml":
+			fileContents.Permissions, err = parseV2Permissions(zippedFile)
+			if err != nil {
+				return nil, err
+			}
+		default:
+			fmt.Println("Ignoring file: ", file.Name)
 		}
 
 	}
@@ -210,45 +217,36 @@ func processPacketFile(file io.Reader) (types.SupportPacketV1, error) {
 
 func parseV2Diagnostics(file io.Reader) (types.SupportPacketDiagnosticsV2, error) {
 	var diagnostics types.SupportPacketDiagnosticsV2
-	diagnosticsBytes, err := io.ReadAll(file)
+	err := yaml.NewDecoder(file).Decode(&diagnostics)
 	if err != nil {
 		return types.SupportPacketDiagnosticsV2{}, err
 	}
-	// Unmarshal the YAML into the struct
-	err = yaml.Unmarshal(diagnosticsBytes, &diagnostics)
-	if err != nil {
-		return types.SupportPacketDiagnosticsV2{}, err
-	}
-
 	return diagnostics, nil
 }
 
 func parseV2Stats(file io.Reader) (types.SupportPacketStatsV2, error) {
 	var stats types.SupportPacketStatsV2
-	statsBytes, err := io.ReadAll(file)
+	err := yaml.NewDecoder(file).Decode(&stats)
 	if err != nil {
 		return types.SupportPacketStatsV2{}, err
 	}
-	// Unmarshal the YAML into the struct
-	err = yaml.Unmarshal(statsBytes, &stats)
-	if err != nil {
-		return types.SupportPacketStatsV2{}, err
-	}
-
 	return stats, nil
 }
 
 func parseV2Jobs(file io.Reader) (types.SupportPacketJobListV2, error) {
 	var jobs types.SupportPacketJobListV2
-	jobsBytes, err := io.ReadAll(file)
+	err := yaml.NewDecoder(file).Decode(&jobs)
 	if err != nil {
 		return types.SupportPacketJobListV2{}, err
 	}
-	// Unmarshal the YAML into the struct
-	err = yaml.Unmarshal(jobsBytes, &jobs)
-	if err != nil {
-		return types.SupportPacketJobListV2{}, err
-	}
-
 	return jobs, nil
+}
+
+func parseV2Permissions(file io.Reader) (types.SupportPacketPermissionInfoV2, error) {
+	var permissions types.SupportPacketPermissionInfoV2
+	err := yaml.NewDecoder(file).Decode(&permissions)
+	if err != nil {
+		return types.SupportPacketPermissionInfoV2{}, err
+	}
+	return permissions, nil
 }

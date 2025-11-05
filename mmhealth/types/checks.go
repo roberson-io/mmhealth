@@ -71,6 +71,7 @@ type PacketData struct {
 	Diagnostics      SupportPacketDiagnosticsV2
 	Stats            SupportPacketStatsV2
 	Jobs             SupportPacketJobListV2
+	Permissions      SupportPacketPermissionInfoV2
 }
 
 type ConfigFile struct {
